@@ -14,7 +14,6 @@ service sshd start
 if [[ $1 = "-namenode" || $2 = "-namenode" ]]; then
   mkdir -p /opt/data/hdfs/namenode
   chmod 700 /opt/data/hdfs/namenode
-  su root -c "/usr/local/hadoop/bin/hdfs namenode -format"
   $HADOOP_PREFIX/sbin/start-dfs.sh
   $HADOOP_PREFIX/sbin/start-yarn.sh
 fi
