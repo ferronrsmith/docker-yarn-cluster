@@ -3,7 +3,7 @@
 # sudo docker build -t yarn_cluster .
 
 FROM sequenceiq/pam:centos-6.5
-MAINTAINER Luciano Resende lresende@apache.org
+MAINTAINER Ferron Hanse ferron.hane@groupbyinc.com
 
 USER root
 
@@ -44,12 +44,12 @@ RUN mkdir $HADOOP_PREFIX/input
 RUN cp $HADOOP_PREFIX/etc/hadoop/*.xml $HADOOP_PREFIX/input
 
 # pseudo distributed
-ADD core-site.xml $HADOOP_PREFIX/etc/hadoop/core-site.xml
+ADD config/core-site.xml $HADOOP_PREFIX/etc/hadoop/core-site.xml
 #RUN sed s/HOSTNAME/localhost/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml
-ADD hdfs-site.xml $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml
+ADD config/hdfs-site.xml $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml
 
-ADD mapred-site.xml $HADOOP_PREFIX/etc/hadoop/mapred-site.xml
-ADD yarn-site.xml $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
+ADD config/mapred-site.xml $HADOOP_PREFIX/etc/hadoop/mapred-site.xml
+ADD config/yarn-site.xml $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
 
 RUN $HADOOP_PREFIX/bin/hdfs namenode -format
 
@@ -67,7 +67,7 @@ RUN chmod 700 /etc/bootstrap.sh
 
 ENV BOOTSTRAP /etc/bootstrap.sh
 
-# workingaround docker.io build error
+# working around docker.io build error
 RUN ls -la /usr/local/hadoop/etc/hadoop/*-env.sh
 RUN chmod +x /usr/local/hadoop/etc/hadoop/*-env.sh
 RUN ls -la /usr/local/hadoop/etc/hadoop/*-env.sh
